@@ -8,6 +8,7 @@ import * as ReactServerDom from 'react-server-dom-webpack/server.browser';
 import { readFile, writeFile } from 'node:fs/promises';
 import { parse } from 'es-module-lexer';
 import { relative } from 'node:path';
+import { exec } from 'node:child_process';
 
 const app = new Hono();
 const clientComponentMap = {};
@@ -146,6 +147,7 @@ ${exp.ln}.$$typeof = Symbol.for("react.client.reference");
 serve(app, async (info) => {
 	await build();
 	console.log(`Listening on http://localhost:${info.port}`);
+	exec(`open http://localhost:${info.port}`);
 });
 
 /** UTILS */
